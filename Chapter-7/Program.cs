@@ -17,7 +17,7 @@ namespace Chapter_7
             int contestantsLast = GetValidContestants(lastYear);
 
             // Compare contestants and annouce tagline
-            string comparison = CompareContestants(contestantsLast, contestantsNow);
+            string comparison = CompareContestants(contestantsNow, contestantsLast);
             Console.WriteLine(comparison);
 
 
