@@ -10,22 +10,19 @@ namespace Chapter_7
     {
         static void Main(string[] args)
         {
-            int contestantsNow = 0;
-            string contestantsNowInput;
+            // Gather and validate contestants
+            string thisYear = "this";            
+            int contestantsNow = GetValidContestants(thisYear);
+            string lastYear = "last";
+            int contestantsLast = GetValidContestants(lastYear);
 
-            Console.Write("How many contestants entered this year? [0-30]: ");
-            contestantsNowInput = Console.ReadLine();
-            contestantsNow = int.Parse(contestantsNowInput);
+            // Compare contestants and annouce tagline
+            string comparison = CompareContestants(contestantsLast, contestantsNow);
+            Console.WriteLine(comparison);
 
-            while (contestantsNow < 0 || contestantsNow > 30)
-            {
-                Console.WriteLine();
-                Console.WriteLine("That number isn't between 0 and 30.");
-                Console.Write("How many contestants entered this year? [0-30]: ");
-                contestantsNowInput = Console.ReadLine();
-                contestantsNow = int.Parse(contestantsNowInput);
-                Console.WriteLine();
-            }
+
+
+                       
 
             List<string> singers = new List<string>();
             List<string> dancers = new List<string>();
@@ -106,6 +103,41 @@ namespace Chapter_7
                 }
 
             }
+        }
+
+
+        public static int GetValidContestants(string year)
+        {
+            int contestants;
+            string contestantsInput;
+
+            Console.Write("How many contestants entered "+ year +" year? [0-30]: ");
+            contestantsInput = Console.ReadLine();
+            contestants = int.Parse(contestantsInput);
+
+            while (contestants < 0 || contestants > 30)
+            {
+                Console.WriteLine();
+                Console.WriteLine("That number isn't between 0 and 30.");
+                Console.Write("How many contestants entered "+ year +" year? [0-30]: ");
+                contestantsInput = Console.ReadLine();
+                contestants = int.Parse(contestantsInput);
+                Console.WriteLine();
+            }
+            return contestants;
+        }
+        public static string CompareContestants(int now, int last)
+        {
+            string tagline = "";
+
+            if (now > 2 * last)
+                tagline = "The competition is more than twice as big this year!";            
+            else if (now > last && now <= last * 2)
+                tagline = "The competition is bigger than ever!";            
+            else if (now < last)
+                tagline = "A tighter race this year! Come out and cast your vote!";
+
+            return tagline;
         }
     }
 }
