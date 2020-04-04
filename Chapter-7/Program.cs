@@ -8,6 +8,11 @@ namespace Chapter_7
 {
     class Program
     {
+        static List<string> singers = new List<string>();
+        static List<string> dancers = new List<string>();
+        static List<string> musicians = new List<string>();
+        static List<string> other = new List<string>();
+
         static void Main(string[] args)
         {
             // Gather and validate contestants
@@ -20,39 +25,8 @@ namespace Chapter_7
             string comparison = CompareContestants(contestantsNow, contestantsLast);
             Console.WriteLine(comparison);
 
-
-
-                       
-
-            List<string> singers = new List<string>();
-            List<string> dancers = new List<string>();
-            List<string> musicians = new List<string>();
-            List<string> other = new List<string>();
-
             for (int i = 0; i < contestantsNow; i++)
-            {
-                Console.Write("Enter a contestant's name: ");
-                string name = Console.ReadLine();
-                Console.Write("What type of talent are they performing? [s - Singing, d - Dancing, m - Music, o - Other]: ");
-                char talent = Console.ReadKey().KeyChar;
-                Console.WriteLine();
-                while (talent != 's' && talent != 'd' && talent != 'm' && talent != 'o')
-                {
-                    Console.WriteLine("That isn't a valid talent.");
-                    Console.Write("What type of talent are they performing? [s - Singing, d - Dancing, m - Music, o - Other]: ");
-                    talent = Console.ReadKey().KeyChar;
-                    Console.WriteLine();
-                }
-
-                if (talent == 's')
-                    singers.Add(name);
-                else if (talent == 'd')
-                    dancers.Add(name);
-                else if (talent == 'm')
-                    musicians.Add(name);
-                else if (talent == 'o')
-                    other.Add(name);
-            }
+                EnterContestant();
 
             Console.WriteLine("Number of contestants by type.");
             Console.WriteLine("Singer: {0}", singers.Count);
@@ -61,50 +35,33 @@ namespace Chapter_7
             Console.WriteLine("Other: {0}", other.Count);
 
             while (true)
-            {
-                Console.Write("Choose a talent to see a list of names. [s, d, m, o]: ");
-                char talent = Console.ReadKey().KeyChar;
-                Console.WriteLine();
-                while (talent != 's' && talent != 'd' && talent != 'm' && talent != 'o')
-                {
-                    Console.WriteLine("That isn't a valid talent.");
-                    Console.Write("Choose a talent to see a list of names. [s - Singing, d - Dancing, m - Music, o - Other]: ");
-                    talent = Console.ReadKey().KeyChar;
-                    Console.WriteLine();
-                }
-
-                if (talent == 's')
-                {
-                    for (int i = 0; i < singers.Count; i++)
-                    {
-                        Console.WriteLine(singers[i]);
-                    }
-                }
-                else if (talent == 'd')
-                {
-                    for (int i = 0; i < dancers.Count; i++)
-                    {
-                        Console.WriteLine(dancers[i]);
-                    }
-                }
-                else if (talent == 'm')
-                {
-                    for (int i = 0; i < musicians.Count; i++)
-                    {
-                        Console.WriteLine(musicians[i]);
-                    }
-                }
-                else if (talent == 'o')
-                {
-                    for (int i = 0; i < other.Count; i++)
-                    {
-                        Console.WriteLine(other[i]);
-                    }
-                }
-
-            }
+                RequestTalentDisplay();
         }
 
+        public static void EnterContestant()
+        {
+            Console.Write("Enter a contestant's name: ");
+            string name = Console.ReadLine();
+            Console.Write("What type of talent are they performing? [s - Singing, d - Dancing, m - Music, o - Other]: ");
+            char talent = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+            while (talent != 's' && talent != 'd' && talent != 'm' && talent != 'o')
+            {
+                Console.WriteLine("That isn't a valid talent.");
+                Console.Write("What type of talent are they performing? [s - Singing, d - Dancing, m - Music, o - Other]: ");
+                talent = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+            }
+
+            if (talent == 's')
+                singers.Add(name);
+            else if (talent == 'd')
+                dancers.Add(name);
+            else if (talent == 'm')
+                musicians.Add(name);
+            else if (talent == 'o')
+                other.Add(name);
+        }
 
         public static int GetValidContestants(string year)
         {
@@ -126,6 +83,7 @@ namespace Chapter_7
             }
             return contestants;
         }
+
         public static string CompareContestants(int now, int last)
         {
             string tagline = "";
@@ -138,6 +96,49 @@ namespace Chapter_7
                 tagline = "A tighter race this year! Come out and cast your vote!";
 
             return tagline;
+        }
+
+        public static void RequestTalentDisplay()
+        {
+            Console.Write("Choose a talent to see a list of names. [s, d, m, o]: ");
+            char talent = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+            while (talent != 's' && talent != 'd' && talent != 'm' && talent != 'o')
+            {
+                Console.WriteLine("That isn't a valid talent.");
+                Console.Write("Choose a talent to see a list of names. [s - Singing, d - Dancing, m - Music, o - Other]: ");
+                talent = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+            }
+
+            if (talent == 's')
+            {
+                for (int i = 0; i < singers.Count; i++)
+                {
+                    Console.WriteLine(singers[i]);
+                }
+            }
+            else if (talent == 'd')
+            {
+                for (int i = 0; i < dancers.Count; i++)
+                {
+                    Console.WriteLine(dancers[i]);
+                }
+            }
+            else if (talent == 'm')
+            {
+                for (int i = 0; i < musicians.Count; i++)
+                {
+                    Console.WriteLine(musicians[i]);
+                }
+            }
+            else if (talent == 'o')
+            {
+                for (int i = 0; i < other.Count; i++)
+                {
+                    Console.WriteLine(other[i]);
+                }
+            }
         }
     }
 }
